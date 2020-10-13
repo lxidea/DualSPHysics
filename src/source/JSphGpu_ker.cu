@@ -878,6 +878,7 @@ void Interaction_Forces(const StInterParmsg &t){
   if(t.tkernel==KERNEL_Wendland)     Interaction_Forces_gt0<KERNEL_Wendland> (t);
  #ifndef DISABLE_KERNELS_EXTRA
   else if(t.tkernel==KERNEL_Cubic)   Interaction_Forces_gt0<KERNEL_Cubic   > (t);
+  else if(t.tkernel==KERNEL_Gaussian)Interaction_Forces_gt0<KERNEL_Gaussian> (t);
  #endif
 #endif
 }
@@ -1100,6 +1101,10 @@ void Interaction_MdbcCorrection(TpKernel tkernel,TpSlipMode slipmode,unsigned n,
 #ifndef DISABLE_KERNELS_EXTRA
     case KERNEL_Cubic:
       Interaction_MdbcCorrectionT <KERNEL_Cubic> (slipmode,n,nbound,mdbcthreshold
+        ,simulate2d,dvd,posxy,posz,code,idp,boundnormal,motionvel,velrhop);
+    break;
+    case KERNEL_Gaussian:
+      Interaction_MdbcCorrectionT <KERNEL_Gaussian> (slipmode,n,nbound,mdbcthreshold
         ,simulate2d,dvd,posxy,posz,code,idp,boundnormal,motionvel,velrhop);
     break;
 #endif

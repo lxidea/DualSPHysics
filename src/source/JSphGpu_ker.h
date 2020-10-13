@@ -46,6 +46,8 @@ typedef struct{
   float poscellsize;        ///<Size of cells used for coding PosCell (it is usually KernelSize).
   float awen;               ///<Wendland kernel constant (awen) to compute wab.
   float bwen;               ///<Wendland kernel constant (bwen) to compute fac (kernel derivative).
+  float agau;               ///<Gaussian kernel constant (agau)
+  float cgau;               ///<Gaussian kernel constant (cgau)
   float cs0;                ///<Speed of sound at the reference density.
   float eta2;               ///<Constant related to H (Eta2=(h*0.1)*(h*0.1)).
   float ddtkh;              ///<Constant for DDT1 & DDT2. DDTkh=DDTValue*KernelSize

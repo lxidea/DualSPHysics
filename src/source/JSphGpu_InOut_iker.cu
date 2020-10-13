@@ -1464,6 +1464,11 @@ void Interaction_InOutExtrap(byte doublemode,bool simulate2d,TpKernel tkernel
         ,inoutcount,inoutpart,cfgzone,computerhopmask,computevelmask
         ,planes,width,dirdata,determlimit,dvd,posxy,posz,code,idp,velrhop);
     break;
+    case KERNEL_Gaussian:
+      Interaction_InOutExtrapT<KERNEL_Gaussian>(doublemode,simulate2d
+        ,inoutcount,inoutpart,cfgzone,computerhopmask,computevelmask
+        ,planes,width,dirdata,determlimit,dvd,posxy,posz,code,idp,velrhop);
+    break;
 #endif
     default: throw "Kernel unknown at Interaction_InOutExtrap().";
   }
@@ -1859,6 +1864,10 @@ void Interaction_BoundCorr(byte doublemode,bool simulate2d,TpKernel tkernel
 #ifndef DISABLE_KERNELS_EXTRA
     case KERNEL_Cubic:
       Interaction_BoundCorrT<KERNEL_Cubic>(doublemode,simulate2d
+        ,npbok,boundcode,plane,direction,determlimit,dvd,posxy,posz,code,idp,velrhop);
+    break;
+    case KERNEL_Gaussian:
+      Interaction_BoundCorrT<KERNEL_Gaussian>(doublemode,simulate2d
         ,npbok,boundcode,plane,direction,determlimit,dvd,posxy,posz,code,idp,velrhop);
     break;
 #endif

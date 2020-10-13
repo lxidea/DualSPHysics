@@ -116,6 +116,7 @@ void Interaction_GaugeVel(const StCteSph &CSP,const StDivDataGpu &dvd,tdouble3 p
     //:JDgKerPrint info;
     //:byte* ik=NULL; //info.GetInfoPointer(sgridf,bsfluid);
     switch(CSP.tkernel){
+      case KERNEL_Gaussian:
       case KERNEL_Cubic:   //Kernel Cubic is not available.
       case KERNEL_Wendland:{ const float aker=CSP.kwend.awen;
         KerInteractionGaugeVel<KERNEL_Wendland> <<<sgrid,bsize>>> (aker,Double3(ptpos)
@@ -385,6 +386,7 @@ void Interaction_GaugeForce(const StCteSph &CSP,const StDivDataGpu &dvd
     const unsigned bsize=128;
     dim3 sgrid=GetSimpleGridSize(n,bsize);
     switch(CSP.tkernel){
+      case KERNEL_Gaussian:
       case KERNEL_Cubic:   //Kernel Cubic is not available.
       case KERNEL_Wendland:{ const float bker=CSP.kwend.bwen;
         KerInteractionGaugeForce<KERNEL_Wendland> <<<sgrid,bsize>>>(bker,n,idbegin,codesel

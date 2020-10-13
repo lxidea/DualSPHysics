@@ -168,6 +168,7 @@ void JSph::InitVars(){
   TKernel=KERNEL_Wendland;
   KCubic ={0,0,0,0,0,0,0,0};
   KWend  ={0,0};
+  KGauss ={0,0};
   TVisco=VISCO_None;
   TDensity=DDT_None; DDTValue=0; DDTArray=false;
   ShiftingMode=(Shifting? Shifting->GetShiftMode(): SHIFT_None);
@@ -537,6 +538,7 @@ void JSph::LoadKernelSelection(const JSphCfgRun *cfg,const JXml *xml){
   switch(eparms.GetValueInt("Kernel",true,2)){
     case 1:  TKernel=KERNEL_Cubic;     break;
     case 2:  TKernel=KERNEL_Wendland;  break;
+    case 3:  TKernel=KERNEL_Gaussian;  break;
     default: Run_Exceptioon("Kernel choice is not valid.");
   }
   //-Load kernel selection from execution parameters from commands.
@@ -1369,6 +1371,7 @@ void JSph::ConfigConstants1(bool simulate2d){
   switch(TKernel){
     case KERNEL_Cubic:       KCubic =fsph::GetKernelCubic_Ctes     (simulate2d,h);  break;
     case KERNEL_Wendland:    KWend  =fsph::GetKernelWendland_Ctes  (simulate2d,h);  break;
+    case KERNEL_Gaussian:    KGauss =fsph::GetKernelGaussian_Ctes  (simulate2d,h);  break;
     default: Run_Exceptioon("Kernel unknown.");
   }
   //-Wendland constants are always computed since this kernel is used in some parts where other kernels are not defined (e.g. Gauge code does not support Cubic Spline).

@@ -253,6 +253,85 @@ inline float GetKernelWendland_WabFac(const StCteSph &csp,float rr2,float &fac){
 }
 
 
+//##############################################################################
+//# Gaussian kernel
+//##############################################################################
+//==============================================================================
+/// Returns the name of the kernel in text format.
+//==============================================================================
+inline const char* GetKernelGaussian_Name(){ return("Gaussian"); }
+//==============================================================================
+/// Returns factor value to compute KernelSize according to KernelH.
+//==============================================================================
+inline float GetKernelGaussian_Factor(){ return(3.0f); }
+//==============================================================================
+/// Returns constants for kernel calculation.
+//==============================================================================
+inline StKGaussianCte GetKernelGaussian_Ctes(bool sim2d,double h){
+  StKGaussianCte kc;
+  kc.cgau=float(exp(-9.0));
+  if(sim2d){
+    kc.agau=float(1.0f/h/h/PI/(1.0-10.0*kc.cgau));
+  }
+  else{
+    kc.agau=float(1.0f/h/h/h/pow(PI,1.5)/(1.0-10.0*kc.cgau));
+  }
+  return(kc);
+}
+//============================================================================== 
+/// Returns wab of kernel.
+//==============================================================================
+inline float GetKernelGaussian_Wab(const StKGaussianCte &kc,float h,float rr2){
+  const float rad=sqrt(rr2);
+  const float qq=rad/h;
+  const float hh2=-h*h*0.5;
+  const float wqq2=-qq*qq;
+  const float wqe=wqq2 - kc.cgau;
+  return(kc.agau*wqe);
+}
+//============================================================================== 
+/// Returns fac of kernel.
+//==============================================================================
+inline float GetKernelGaussian_Fac(const StKGaussianCte &kc,float h,float rr2){
+  const float rad=sqrt(rr2);
+  const float qq=rad/h;
+  const float hh2=-h*h*0.5;
+  const float wqq2=-qq*qq;
+  return(kc.agau*exp(wqq2)/hh2);
+}
+//============================================================================== 
+/// Returns wab and fac of kernel.
+//==============================================================================
+inline float GetKernelGaussian_WabFac(const StKGaussianCte &kc,float h,float rr2,float &fac){
+  const float rad=sqrt(rr2);
+  const float qq=rad/h;
+  const float hh2=-h*h*0.5;
+  const float wqq2=-qq*qq;
+  const float wqe=wqq2 - kc.cgau;
+  fac=kc.agau*exp(wqq2)/hh2;
+  return(kc.agau*wqe);
+}
+
+//============================================================================== 
+/// Returns wab of kernel.
+//==============================================================================
+inline float GetKernelGaussian_Wab(const StCteSph &csp,float rr2){
+  return(GetKernelGaussian_Wab(csp.kgauss,csp.kernelh,rr2));
+}
+//============================================================================== 
+/// Returns fac of kernel.
+//==============================================================================
+inline float GetKernelGaussian_Fac(const StCteSph &csp,float rr2){
+  return(GetKernelGaussian_Fac(csp.kgauss,csp.kernelh,rr2));
+}
+//============================================================================== 
+/// Returns wab and fac of kernel.
+//==============================================================================
+inline float GetKernelGaussian_WabFac(const StCteSph &csp,float rr2,float &fac){
+  return(GetKernelGaussian_WabFac(csp.kgauss,csp.kernelh,rr2,fac));
+}
+
+
 
 //##############################################################################
 //# Returns kernel information.
@@ -263,6 +342,7 @@ inline float GetKernelWendland_WabFac(const StCteSph &csp,float rr2,float &fac){
 inline float GetKernel_Factor(TpKernel tker){
        if(tker==KERNEL_Wendland  )return(GetKernelWendland_Factor());
   else if(tker==KERNEL_Cubic     )return(GetKernelCubic_Factor());
+  else if(tker==KERNEL_Gaussian  )return(GetKernelGaussian_Factor());
   return(0);
 }
 
@@ -276,6 +356,7 @@ inline float GetKernel_Factor(TpKernel tker){
 template<TpKernel tker> inline float GetKernel_Wab(const StCteSph &csp,float rr2){
        if(tker==KERNEL_Wendland  )return(GetKernelWendland_Wab  (csp.kwend  ,csp.kernelh,rr2));
   else if(tker==KERNEL_Cubic     )return(GetKernelCubic_Wab     (csp.kcubic ,csp.kernelh,rr2));
+  else if(tker==KERNEL_Gaussian  )return(GetKernelGaussian_Wab  (csp.kgauss ,csp.kernelh,rr2));
   else return(0);
 }
 //============================================================================== 
@@ -284,6 +365,7 @@ template<TpKernel tker> inline float GetKernel_Wab(const StCteSph &csp,float rr2
 template<TpKernel tker> inline float GetKernel_Fac(const StCteSph &csp,float rr2){
        if(tker==KERNEL_Wendland  )return(GetKernelWendland_Fac  (csp.kwend  ,csp.kernelh,rr2));
   else if(tker==KERNEL_Cubic     )return(GetKernelCubic_Fac     (csp.kcubic ,csp.kernelh,rr2));
+  else if(tker==KERNEL_Gaussian  )return(GetKernelGaussian_Fac  (csp.kgauss ,csp.kernelh,rr2));
   else return(0);
 }
 //============================================================================== 
@@ -292,6 +374,7 @@ template<TpKernel tker> inline float GetKernel_Fac(const StCteSph &csp,float rr2
 template<TpKernel tker> inline float GetKernel_WabFac(const StCteSph &csp,float rr2,float &fac){
        if(tker==KERNEL_Wendland  )return(GetKernelWendland_WabFac  (csp.kwend  ,csp.kernelh,rr2,fac));
   else if(tker==KERNEL_Cubic     )return(GetKernelCubic_WabFac     (csp.kcubic ,csp.kernelh,rr2,fac));
+  else if(tker==KERNEL_Gaussian  )return(GetKernelGaussian_WabFac  (csp.kgauss ,csp.kernelh,rr2,fac));
   else return(0);
 }
 

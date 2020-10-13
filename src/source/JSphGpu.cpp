@@ -537,6 +537,9 @@ void JSphGpu::ConstantDataUp(){
     ctes.cubic_a1=KCubic.a1; ctes.cubic_a2=KCubic.a2; ctes.cubic_aa=KCubic.aa; ctes.cubic_a24=KCubic.a24;
     ctes.cubic_c1=KCubic.c1; ctes.cubic_c2=KCubic.c2; ctes.cubic_d1=KCubic.d1; ctes.cubic_odwdeltap=KCubic.od_wdeltap;
   }
+  if(TKernel==KERNEL_Gaussian){
+    ctes.agau=KGauss.agau; ctes.cgau=KGauss.cgau;
+  }
   ctes.cs0=float(Cs0); ctes.eta2=Eta2;
   ctes.ddtkh=DDTkh;
   ctes.ddtgz=DDTgz;

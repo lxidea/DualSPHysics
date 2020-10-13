@@ -365,6 +365,7 @@ void JGaugeVelocity::CalculeCpu(double timestep,const StDivDataCpu &dvd
   ,const typecode *code,const unsigned *idp,const tfloat4 *velrhop)
 {
   switch(CSP.tkernel){
+    case KERNEL_Gaussian:
     case KERNEL_Cubic:       //Kernel Wendland is used since Cubic is not available.
     case KERNEL_Wendland:    CalculeCpuT<KERNEL_Wendland>  (timestep,dvd,npbok,npb,np,pos,code,idp,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");
@@ -595,6 +596,7 @@ void JGaugeSwl::CalculeCpu(double timestep,const StDivDataCpu &dvd
   ,const typecode *code,const unsigned *idp,const tfloat4 *velrhop)
 {
   switch(CSP.tkernel){
+    case KERNEL_Gaussian:
     case KERNEL_Cubic:       //Kernel Wendland is used since Cubic is not available.
     case KERNEL_Wendland:    CalculeCpuT<KERNEL_Wendland>  (timestep,dvd,npbok,npb,np,pos,code,idp,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");
@@ -1035,6 +1037,7 @@ void JGaugeForce::CalculeCpu(double timestep,const StDivDataCpu &dvd
   ,const typecode *code,const unsigned *idp,const tfloat4 *velrhop)
 {
   switch(CSP.tkernel){
+    case KERNEL_Gaussian:
     case KERNEL_Cubic:       //Kernel Wendland is used since Cubic is not available.
     case KERNEL_Wendland:    CalculeCpuT<KERNEL_Wendland>  (timestep,dvd,npbok,npb,np,pos,code,idp,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");

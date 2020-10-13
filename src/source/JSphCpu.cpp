@@ -1018,6 +1018,7 @@ template<TpKernel tker> void JSphCpu::Interaction_Forces_ct2(const stinterparmsc
 void JSphCpu::Interaction_Forces_ct(const stinterparmsc &t,StInterResultc &res)const{
        if(TKernel==KERNEL_Wendland)  Interaction_Forces_ct2<KERNEL_Wendland>(t,res);
   else if(TKernel==KERNEL_Cubic)     Interaction_Forces_ct2<KERNEL_Cubic   >(t,res);
+  else if(TKernel==KERNEL_Gaussian)  Interaction_Forces_ct2<KERNEL_Gaussian>(t,res);
 }
 
 //<vs_mddbc_ini>
@@ -1226,6 +1227,7 @@ void JSphCpu::Interaction_MdbcCorrection(TpSlipMode slipmode,const StDivDataCpu 
   switch(TKernel){
     case KERNEL_Cubic:       Interaction_MdbcCorrectionT <KERNEL_Cubic     > (slipmode,divdata,pos,code,idp,boundnormal,motionvel,velrhop);  break;
     case KERNEL_Wendland:    Interaction_MdbcCorrectionT <KERNEL_Wendland  > (slipmode,divdata,pos,code,idp,boundnormal,motionvel,velrhop);  break;
+    case KERNEL_Gaussian:    Interaction_MdbcCorrectionT <KERNEL_Gaussian  > (slipmode,divdata,pos,code,idp,boundnormal,motionvel,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");
   }
 }

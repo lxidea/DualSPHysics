@@ -104,6 +104,10 @@ void JGaugeSystem::Config(const StCteSph & csp,bool symmetry,double timemax,doub
     Log->PrintfWarning("The kernel Cubic Spline is not available in GaugeSystem, so kernel Wendland is used.");
     if(!CSP.kwend.awen || !CSP.kwend.bwen)Run_Exceptioon("Constants of kernel Wendland are not defined.");
   }
+  if(CSP.tkernel==KERNEL_Gaussian){
+    Log->PrintfWarning("The kernel Gaussian is not available in GaugeSystem, so kernel Wendland is used.");
+    if(!CSP.kwend.awen || !CSP.kwend.bwen)Run_Exceptioon("Constants of kernel Wendland are not defined.");
+  }
   Symmetry=symmetry;
   TimeMax=timemax;
   TimePart=timepart;

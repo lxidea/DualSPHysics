@@ -175,6 +175,7 @@ protected:
   TpKernel TKernel;                ///<Kernel type: Cubic or Wendland.
   fsph::StKCubicCte      KCubic;   ///<Constants for the Cubic Spline kernel.
   fsph::StKWendlandCte   KWend;    ///<Constants for the Wendland kernel.
+  fsph::StKGaussianCte   KGauss;   ///<Constants for the Gaussian kernel.
 
   TpDensity TDensity;         ///<Density Diffusion Term 0:None, 1:Molteni, 2:Fourtakas, 3:Fourtakas(full) (default=0)
   float DDTValue;             ///<Value used with Density Diffusion Term (default=0.1)

@@ -48,6 +48,15 @@ typedef struct {
   float bwen;  ///<Constant to compute fac (kernel derivative).
 }StKWendlandCte;
 
+//##############################################################################
+//# Gaussian kernel
+//##############################################################################
+///Structure with constants for the Wendland kernel.
+typedef struct {
+  float agau;  ///<Constant to compute wab.
+  float cgau;  ///<Constant to compute fac (kernel derivative).
+}StKGaussianCte;
+
 }
 
 #endif

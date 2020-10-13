@@ -457,6 +457,7 @@ void JSphCpu::Interaction_InOutExtrap(byte doublemode,unsigned inoutcount,const 
   switch(TKernel){
     case KERNEL_Cubic:       Interaction_InOutExtrapT<KERNEL_Cubic>     (doublemode,inoutcount,inoutpart,cfgzone,planes,width,dirdata,determlimit,dcell,pos,code,idp,velrhop);  break;
     case KERNEL_Wendland:    Interaction_InOutExtrapT<KERNEL_Wendland>  (doublemode,inoutcount,inoutpart,cfgzone,planes,width,dirdata,determlimit,dcell,pos,code,idp,velrhop);  break;
+    case KERNEL_Gaussian:    Interaction_InOutExtrapT<KERNEL_Gaussian>  (doublemode,inoutcount,inoutpart,cfgzone,planes,width,dirdata,determlimit,dcell,pos,code,idp,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");
   }
 }
@@ -753,6 +754,7 @@ void JSphCpu::Interaction_BoundCorr(byte doublemode,typecode boundcode
   switch(TKernel){
     case KERNEL_Cubic:       Interaction_BoundCorrT<KERNEL_Cubic>     (doublemode,boundcode,plane,direction,determlimit,pos,code,idp,velrhop);  break;
     case KERNEL_Wendland:    Interaction_BoundCorrT<KERNEL_Wendland>  (doublemode,boundcode,plane,direction,determlimit,pos,code,idp,velrhop);  break;
+    case KERNEL_Gaussian:    Interaction_BoundCorrT<KERNEL_Gaussian>  (doublemode,boundcode,plane,direction,determlimit,pos,code,idp,velrhop);  break;
     default: Run_Exceptioon("Kernel unknown.");
   }
 }

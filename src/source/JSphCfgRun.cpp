@@ -115,6 +115,7 @@ void JSphCfgRun::VisuInfo()const{
   printf("    -wendland        Wendland kernel (by default)\n");
 #ifndef DISABLE_KERNELS_EXTRA
   printf("    -cubic           Cubic spline kernel\n");
+  printf("    -gaussian        Gaussian kernel\n");
 #endif
   printf("\n");
   printf("    -viscoart:<float>          Artificial viscosity [0-1]\n");
@@ -291,6 +292,7 @@ void JSphCfgRun::LoadOpts(string *optlis,int optn,int lv,const std::string &file
       }
       else if(txword=="WENDLAND")TKernel=KERNEL_Wendland;
       else if(txword=="CUBIC")TKernel=KERNEL_Cubic;
+      else if(txword=="GAUSSIAN")TKernel=KERNEL_Gaussian;
       else if(txword=="VISCOART"){ 
         Visco=float(atof(txoptfull.c_str())); 
         if(Visco>10)ErrorParm(opt,c,lv,file);

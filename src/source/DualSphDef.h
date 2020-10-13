@@ -317,6 +317,7 @@ typedef enum{
 
 ///Types of kernel function.
 typedef enum{ 
+  KERNEL_Gaussian=3,   ///<Gaussian kernel.
   KERNEL_Wendland=2,   ///<Wendland kernel.
   KERNEL_Cubic=1,      ///<Cubic Spline kernel.
   KERNEL_None=0 
@@ -378,6 +379,7 @@ typedef struct{
   TpKernel tkernel;               ///<Kernel type: Cubic or Wendland.
   fsph::StKCubicCte      kcubic;  ///<Constants for the Cubic Spline kernel.
   fsph::StKWendlandCte   kwend;   ///<Constants for the Wendland kernel.
+  fsph::StKGaussianCte   kgauss;  ///<Constants for the Gaussian kernel.
 
   float kernelh;            ///<The smoothing length of SPH kernel [m].
   float cteb;               ///<Constant used in the state equation [Pa].
@@ -403,7 +405,7 @@ typedef struct{
 inline StCteSph CteSphNull(){
   StCteSph c={false,0,KERNEL_None
     ,{0,0,0,0,0,0,0,0}
-    ,{0,0}
+    ,{0,0},{0,0}
     ,0,0,0,0,0,0,0,{0,0,0},0,0,0,0,0,0,0,0};
   return(c);
 }

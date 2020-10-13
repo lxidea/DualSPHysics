@@ -66,6 +66,7 @@ std::string GetKernelName(TpKernel tkernel){
   switch(tkernel){
     case KERNEL_Cubic:      tx=GetKernelCubic_Name();       break;
     case KERNEL_Wendland:   tx=GetKernelWendland_Name();    break;
+    case KERNEL_Gaussian:   tx=GetKernelGaussian_Name();    break;
     default: Run_ExceptioonFun("Kernel unknown.");
   }
   return(tx);
@@ -91,6 +92,11 @@ void GetKernelConfig(const StCteSph &CSP,std::vector<std::string> &lines){
       const StKWendlandCte &kc=CSP.kwend;
       lines.push_back(fun::VarStr("  Wendland.awen" ,kc.awen));
       lines.push_back(fun::VarStr("  Wendland.bwen" ,kc.bwen));
+    }break;
+    case KERNEL_Gaussian:{
+      const StKGaussianCte &kc=CSP.kgauss;
+      lines.push_back(fun::VarStr("  Gaussian.agau" ,kc.agau));
+      lines.push_back(fun::VarStr("  Gaussian.cgau" ,kc.cgau));
     }break;
     default: Run_ExceptioonFun("Kernel unknown.");
   }
